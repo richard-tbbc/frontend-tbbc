@@ -13,13 +13,12 @@ const UserList = () => {
         if (user.name.trim() === "") return;
     
         if (selectedUser !== null) {
-          // Editar fruta existente
-          updateUser({ id: selectedUser.id, name: selectedUser.name, 
-            phone: selectedUser.phone, email: selectedUser.email
-           })
-           selectedUser(null);
+          // Editar user existente
+          //setUser((user) =>({...user, id: selectedUser.id }))
+          updateUser(user, selectedUser.id)
+           setSelectedUser(null);
         } else {
-          // Agregar nueva fruta
+          // Agregar nuevo user
           addUser(user)
         }
     
@@ -29,9 +28,9 @@ const UserList = () => {
     const addUser = async (u) => {
     try {
         await api.post('/api/v1/users', { name: u.name, phone: u.phone, email: u.email });
-        fetchUsers();  // Refresh the list after adding a fruit
+        fetchUsers();  // Refresh the list after adding a user
     } catch (error) {
-        console.error("Error adding fruit", error);
+        console.error("Error adding user", error);
     }
     };
 
@@ -40,17 +39,17 @@ const UserList = () => {
         const response = await api.get('/api/v1/users');
         setUsers(response.data.users);
     } catch (error) {
-        console.error("Error fetching fruits", error);
+        console.error("Error fetching users", error);
     }
     };
 
-    const updateUser = async (fruit) => {
+    const updateUser = async (user, id) => {
     try {
-        console.log("fuit "+fruit.id)
-        await api.put(`/api/v1/users/${fruit.id}`, { name: fruit.name });
-        fetchUsers();  // Refresca la lista después de actualizar una fruta
+        console.log(user)
+        await api.put(`/api/v1/users/${id}`, user);
+        fetchUsers();  // Refresca la lista después de actualizar un usuario
     } catch (error) {
-        console.error("Error updating fruit", error);
+        console.error("Error updating user", error);
     }
     };
 
@@ -61,7 +60,7 @@ const UserList = () => {
         } catch (error) {
           console.error("Error deleting fruit", error);
         }
-      };
+    };
 
     const handleName = (e) => {
         setUser((prevUser) => ({
@@ -122,7 +121,7 @@ const UserList = () => {
         
             </div>
             </form>
-            <button onClick={() =>{ setSelectedUser(null); setUser("");}} className="btn btn-success w-100">
+            <button onClick={() =>{ setSelectedUser(null); setUser({name: "", phone:"", email: ""});}} className="btn btn-success w-100">
             clean
         </button>
 
@@ -143,7 +142,7 @@ const UserList = () => {
             <div key={user.id} className="border p-2 mb-2">
                 <p><strong>{user.name}</strong></p>
                 
-                <button className="btn btn-secondary btn-sm me-2" onClick={() =>{ setUser(user.name, user.phone, user.email); setSelectedUser(user)}}>Edit</button>
+                <button className="btn btn-secondary btn-sm me-2" onClick={() =>{ setUser({name: user.name,phone: user.phone,email: user.email}); setSelectedUser(user)}}>Edit</button>
                 <button class="btn btn-danger"
         onClick={() => deleteFruit(user.id)} 
         >delete</button>
