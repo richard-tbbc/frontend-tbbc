@@ -11,15 +11,15 @@ const UserForm = ({ user, selectedUser, handleSubmit, handleChange, clearForm })
                 <div className="mb-2">
                     <label>Name:</label>
                     <input type="text" value={user.name} name="name" className="form-control" 
-                        onChange={handleChange} placeholder="Enter user name" />
+                        onChange={handleChange} placeholder="Enter user name" required/>
 
                     <label>Phone:</label>
                     <input type="number" value={user.phone} name="phone" className="form-control" 
-                        onChange={handleChange} placeholder="Enter user phone" />
+                        onChange={handleChange} placeholder="Enter user phone" required/>
 
                     <label>Email:</label>
                     <input type="email" value={user.email} name="email" className="form-control" 
-                        onChange={handleChange} placeholder="Enter user email" />
+                        onChange={handleChange} placeholder="Enter user email" required/>
                     
                     <div className='py-2'>
                         {/* verificar si formulario para registro o actualización */}

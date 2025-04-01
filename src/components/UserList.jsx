@@ -57,6 +57,7 @@ const UserList = () => {
                 <div className="col-md-6 border p-3">
                     <h4 className="text-center">LISTA DE CONTACTOS</h4>
                     <input type="text" className="form-control mb-2" placeholder="Buscar user..." onChange={(e) => setSearch(e.target.value)} />
+                    {/* Aquí se realiza el filtro para los usuarios */}
                     {users.filter((c) => search.length < 3 || c.name.toLowerCase().includes(search.toLowerCase()))
                         .map((user) => (
                             <div key={user.id} className="border p-2 mb-2">
