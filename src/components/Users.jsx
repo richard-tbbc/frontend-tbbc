@@ -58,7 +58,7 @@ const UserList = () => {
           await api.delete(`/api/v1/users/${fruitId}`);
           fetchUsers();  // Refresca la lista después de eliminar
         } catch (error) {
-          console.error("Error deleting fruit", error);
+          console.error("Error deleting user", error);
         }
     };
 
@@ -72,14 +72,14 @@ const UserList = () => {
     const handlePhone = (e) => {
         setUser((prevUser) => ({
           ...prevUser, // Mantiene el resto de los valores del objeto
-          phone: e.target.value, // Solo actualiza "name"
+          phone: e.target.value, // Solo actualiza "phone"
         }));
     };
 
     const handleEmail = (e) => {
         setUser((prevUser) => ({
           ...prevUser, // Mantiene el resto de los valores del objeto
-          email: e.target.value, // Solo actualiza "name"
+          email: e.target.value, // Solo actualiza "email"
         }));
     };
 
